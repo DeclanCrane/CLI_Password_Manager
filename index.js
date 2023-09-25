@@ -3,7 +3,7 @@ import getConfigDir from "./utils/getConfigDir.js"
 import setup from "./utils/setup.js"
 import "dotenv/config"
 
-// Check if a database file exists, and a master password is set (setup complete)
+// Check if a database file exists ( setup complete )
 if (!existsSync(getConfigDir())) {
     await setup()
 }

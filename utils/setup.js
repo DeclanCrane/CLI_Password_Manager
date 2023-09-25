@@ -5,6 +5,7 @@ import createDatabase from "./createDatabase.js";
 import getConfig from "./getConfig.js";
 import setConfig from "./setConfig.js";
 import getConfigDir from "./getConfigDir.js";
+import bcrypt from "bcrypt";
 export default async function setup() {
     // Create inital database file
     createDatabase() 
@@ -17,10 +18,14 @@ export default async function setup() {
         password = await rl.question("Please create a master password: ");
     }
     rl.close();
+    
+    // Encrypt master password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
 
     // Write inital config with master password 
     const config = getConfig()
-    config.masterPass = password
+    config.masterPass = hash;
     if(setConfig(config))
         console.log("Setup complete");
     else {

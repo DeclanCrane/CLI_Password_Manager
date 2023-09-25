@@ -1,6 +1,7 @@
 import {existsSync} from "node:fs"
 import getConfigDir from "./utils/getConfigDir.js"
 import setup from "./utils/setup.js"
+import authenticate from "./utils/authenticate.js"
 import "dotenv/config"
 
 // Check if a database file exists ( setup complete )
@@ -8,8 +9,11 @@ if (!existsSync(getConfigDir())) {
     await setup()
 }
 
-console.log("Hello, World");
+console.log("Welcome");
 
+if(!await authenticate()) {
+    process.exit();
+}
 /*
 if (fs.existsSync(`${dbPath}db.txt`))
     console.log("Database already exists");

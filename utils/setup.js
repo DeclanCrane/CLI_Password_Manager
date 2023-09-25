@@ -26,6 +26,7 @@ export default async function setup() {
     // Write inital config with master password 
     const config = getConfig()
     config.masterPass = hash;
+    
     if(setConfig(config))
         console.log("Setup complete");
     else {

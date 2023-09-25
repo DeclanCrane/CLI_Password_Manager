@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from "node:fs"
+import { mkdirSync } from "node:fs"
 import { platform, homedir } from "node:os"
 import setConfig from "./setConfig.js"
 import dbBoiler from "../templates/dbBoiler.js"
@@ -15,7 +15,7 @@ export default function createDatabase() {
 
     // Create database file
     if(setConfig(dbBoiler))
-        console.log("Wrote config successfully")
+        console.log("Created config successfully")
     else
-        console.error("Error writing config")
+        console.error("Error creating config")
 }

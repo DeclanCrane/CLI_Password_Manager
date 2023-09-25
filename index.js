@@ -1,9 +1,10 @@
 import {existsSync} from "node:fs"
+import getConfigDir from "./utils/getConfigDir.js"
 import setup from "./utils/setup.js"
 import "dotenv/config"
 
-// Check if a master password is already in the db file (setup complete)
-if (!existsSync(``)) {
+// Check if a database file exists, and a master password is set (setup complete)
+if (!existsSync(getConfigDir())) {
     await setup()
 }
 

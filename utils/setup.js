@@ -27,7 +27,7 @@ export default async function setup() {
     const config = getConfig()
     config.masterPass = hash;
     
-    if(setConfig(config))
+    if(setConfig(config, password))
         console.log("Setup complete");
     else {
         console.error("Setup failed: could not write database file");

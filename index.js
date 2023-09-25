@@ -1,7 +1,9 @@
 import {existsSync} from "node:fs"
 import getConfigDir from "./utils/getConfigDir.js"
+import getConfig from "./utils/getConfig.js"
 import setup from "./utils/setup.js"
 import authenticate from "./utils/authenticate.js"
+import CryptoJS from "crypto-js"
 import "dotenv/config"
 
 // Check if a database file exists ( setup complete )
@@ -11,9 +13,27 @@ if (!existsSync(getConfigDir())) {
 
 console.log("Welcome");
 
-if(!await authenticate()) {
+// Get config
+const config = getConfig();
+
+// Authenticate
+const authInfo = await authenticate(config.masterPass);
+if(!authInfo.success){
     process.exit();
 }
+
+// Decrypt database accounts
+if(config.accounts.length) {
+    const data = CryptoJS.AES.decrypt(config.accounts, authInfo.key);
+    const accounts = JSON.parse(data.toString(CryptoJS.enc.Utf8));
+    config.accounts = accounts;
+}
+
+
+
+
+
+
 /*
 if (fs.existsSync(`${dbPath}db.txt`))
     console.log("Database already exists");

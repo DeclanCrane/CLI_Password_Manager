@@ -1,21 +1,19 @@
 import * as readline from "readline/promises"
 import { stdin, stdout } from "node:process"
 import bcrypt from "bcrypt"
-import getConfig from "./getConfig.js"
 
-export default async function authenticate() {
-    // Get the master pass from database
-    const config = getConfig();
-
+export default async function authenticate(masterPassHash) {
     const rl = readline.createInterface({ input: stdin, output: stdout});
 
+    let password = "";
     let authenticated = false;
     const maxRetry = 3;
     let retryCount = 0;
+    const authInfo = { key: "", success: false }
 
     while(!authenticated) {
-        let password = await rl.question("Please enter your master password: ");
-        authenticated = bcrypt.compareSync(password, config.masterPass);
+        password = await rl.question("Please enter your master password: ");
+        authenticated = bcrypt.compareSync(password, masterPassHash);
         if(authenticated)
             console.log("Access granted");
         else {
@@ -26,5 +24,7 @@ export default async function authenticate() {
         }
     }
     rl.close();
-    return authenticated;
+    authInfo.key = password;
+    authInfo.success = authenticated;
+    return authInfo;
 }

@@ -1,9 +1,9 @@
 import * as readline from "node:readline/promises"
 import { stdin, stdout } from "node:process"
-import createDatabase from "./createDatabase";
-import getConfig from "./getConfig";
-import setConfig from "./setConfig";
-async function setup() {
+import createDatabase from "./createDatabase.js";
+import getConfig from "./getConfig.js";
+import setConfig from "./setConfig.js";
+export default async function setup() {
     // Create inital database file
     createDatabase() 
 
@@ -14,13 +14,14 @@ async function setup() {
     while(password.length <= 0) {
         password = await rl.question("Please create a master password: ");
     }
+    rl.close();
 
     // Get config
     const config = getConfig()
     // Write config
     config.masterPass = password
     if(setConfig(config))
-        console.log("Database updating successfully");
+        console.log("Database updated successfully");
     else
         console.error("Database update failed");
 }

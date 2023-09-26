@@ -14,20 +14,22 @@ if (!existsSync(getConfigDir())) {
 console.log("Welcome");
 
 // Get config
-const config = getConfig();
+//const config = getConfig();
 
 // Authenticate
-const authInfo = await authenticate(config.masterPass);
-if(!authInfo.success){
+
+const config = await authenticate();
+if(!config.masterPass){
     process.exit();
 }
 
+console.log(config);
+
+
 // Decrypt database accounts
-if(config.accounts.length) {
-    const data = CryptoJS.AES.decrypt(config.accounts, authInfo.key);
-    const accounts = JSON.parse(data.toString(CryptoJS.enc.Utf8));
-    config.accounts = accounts;
-}
+/*
+
+*/
 
 
 

@@ -9,12 +9,5 @@ export default function getConfig() {
     } catch (err) {
         console.error(`Error reading database file: ${err}`)
     }
-
-    // Parse plain text into JSON
-    try {
-        const config = JSON.parse(data)
-        return config
-    } catch (err) {
-        console.error(`Error parsing config ${err}`)
-    }
+    return data;
 }

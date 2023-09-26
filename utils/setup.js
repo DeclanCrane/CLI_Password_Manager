@@ -1,14 +1,13 @@
 import * as readline from "node:readline/promises"
 import { stdin, stdout } from "node:process"
 import { rmSync } from "node:fs"
-import createDatabase from "./createDatabase.js";
-import getConfig from "./getConfig.js";
+import createDatabaseDir from "./createDatabaseDir.js";
+import dbBoiler from "../templates/dbBoiler.js";
 import setConfig from "./setConfig.js";
-import getConfigDir from "./getConfigDir.js";
-import bcrypt from "bcrypt";
+
 export default async function setup() {
-    // Create inital database file
-    createDatabase() 
+    // Create database directory 
+    const dir = createDatabaseDir() 
 
     // Setup user's master password
     const rl = readline.createInterface({ input: stdin, output: stdout});
@@ -18,20 +17,16 @@ export default async function setup() {
         password = await rl.question("Please create a master password: ");
     }
     rl.close();
-    
-    // Encrypt master password
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password, salt);
 
-    // Write inital config with master password 
-    const config = getConfig()
-    config.masterPass = hash;
-    
-    if(setConfig(config, password))
-        console.log("Setup complete");
+    // Set password
+    const db = dbBoiler;
+    db.masterPass = password;
+
+    // Create database file
+    if(setConfig(db, password))
+        console.log("Created config successfully")
     else {
-        console.error("Setup failed: could not write database file");
-        // Delete the database file for future reattempt
-        rmSync(getConfigDir());
+        console.error("Error creating config")
+        rmSync(`${dir}/${process.env.CONFIG_FILE}`);
     }
 }

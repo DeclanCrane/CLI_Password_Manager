@@ -1,9 +1,10 @@
 import {existsSync} from "node:fs"
+import setConfig from "./utils/setConfig.js"
 import getConfigDir from "./utils/getConfigDir.js"
-import getConfig from "./utils/getConfig.js"
 import setup from "./utils/setup.js"
 import authenticate from "./utils/authenticate.js"
-import CryptoJS from "crypto-js"
+import addAccount from "./utils/addAccount.js"
+import listAccounts from "./utils/listAccounts.js"
 import "dotenv/config"
 
 // Check if a database file exists ( setup complete )
@@ -19,12 +20,15 @@ console.log("Welcome");
 // Authenticate
 
 const config = await authenticate();
-if(!config.masterPass){
-    process.exit();
-}
+listAccounts(config);
 
 console.log(config);
 
+await addAccount(config)
+
+//console.log(JSON.stringify(config));
+
+setConfig(config, config.masterPass);
 
 // Decrypt database accounts
 /*

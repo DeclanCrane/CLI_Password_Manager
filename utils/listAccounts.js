@@ -7,8 +7,8 @@ export default function listAccounts(db, serviceName) {
             })
         }
     } else {
-        db.accounts[`${service}`].map(account => {
-            console.log(`${account.username}, ${account.password}`)
+        db.accounts[serviceName].map((account, idx) => {
+            console.log(`${idx}. ${account.username}, ${account.password}`)
         })
     }
 }

@@ -4,6 +4,7 @@ import getConfigDir from "./utils/getConfigDir.js"
 import setup from "./utils/setup.js"
 import authenticate from "./utils/authenticate.js"
 import addAccount from "./utils/addAccount.js"
+import deleteAccount from "./utils/deleteAccount.js"
 import listAccounts from "./utils/listAccounts.js"
 import "dotenv/config"
 
@@ -24,7 +25,7 @@ listAccounts(config);
 
 console.log(config);
 
-await addAccount(config)
+//await deleteAccount(config, "steam");
 
 //console.log(JSON.stringify(config));
 

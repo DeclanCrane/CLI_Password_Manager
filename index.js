@@ -9,10 +9,12 @@ import saveAndExit from "./utils/saveAndExit.js"
 import chalk from "chalk"
 import figlet from "figlet"
 import inquirer from "inquirer"
+import gradient from "gradient-string"
 import "dotenv/config"
 import modifyAccount from "./utils/modifyAccount.js"
 
-console.log(chalk.greenBright(figlet.textSync("WELCOME")));
+const welcomeGradient = gradient(['#1eff00', '#1d7512', '#1eff00']);
+console.log(welcomeGradient(figlet.textSync("WELCOME")));
 
 // Check if a database file exists ( setup complete )
 if (!existsSync(getConfigDir())) {

@@ -44,7 +44,7 @@ while (true) {
             await addAccount(config);
             break;
         case "Delete Account":
-            await deleteAccount()
+            await deleteAccount(config)
             break;
         case "Exit":
             process.exit(0);

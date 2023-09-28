@@ -1,41 +1,7 @@
 import deleteService from "./deleteService.js";
+import selectService from "./selection/selectService.js";
+import selectAccount from "./selection/selectAccount.js";
 import inquirer from "inquirer";
-
-async function selectService(db) {
-    // Get the list of services
-    const services = [];
-    for (var key in db.accounts) {
-        services.push(key)
-    }
-
-    console.log(services);
-
-    const answer = await inquirer.prompt({
-        name: "service",
-        type: "list",
-        choices: services
-    });
-
-    return answer.service;
-}
-
-async function selectAccount(db, service) {
-    const accounts = [];
-    db.accounts[`${service}`].map(account => {
-        accounts.push(account.username);
-    })
-
-    console.log(accounts);
-
-    const answer = await inquirer.prompt({
-        name: "account",
-        type: "list",
-        message: "Select an account to delete",
-        choices: accounts    
-    });
-
-    return accounts.indexOf(answer.service);
-}
 
 export default async function deleteAccount(db) {
     // Select service

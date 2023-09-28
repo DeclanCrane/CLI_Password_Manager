@@ -10,6 +10,7 @@ import chalk from "chalk"
 import figlet from "figlet"
 import inquirer from "inquirer"
 import "dotenv/config"
+import modifyAccount from "./utils/modifyAccount.js"
 
 console.log(chalk.greenBright(figlet.textSync("WELCOME")));
 
@@ -44,6 +45,9 @@ while (true) {
             break;
         case "Delete Account":
             await deleteAccount(config)
+            break;
+        case "Modify Account":
+            await modifyAccount(config)
             break;
         case "Exit":
             await saveAndExit(config);

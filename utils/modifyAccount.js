@@ -42,6 +42,6 @@ export default async function modifyAccount(db) {
             account.password = newPass;
             break;
     }
-
+    console.log(chalk.blueBright("Changes: "));
     listAccounts(db, service);
 }

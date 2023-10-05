@@ -1,3 +1,5 @@
+#!/bin/node
+
 import { existsSync } from "node:fs"
 import getConfigDir from "./utils/getConfigDir.js"
 import setup from "./utils/setup.js"

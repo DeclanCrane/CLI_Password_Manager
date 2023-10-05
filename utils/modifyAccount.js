@@ -1,6 +1,7 @@
 import selectAccount from "./selection/selectAccount.js";
 import selectService from "./selection/selectService.js";
 import listAccounts from "./listAccounts.js";
+import checkEmpty from "./checkEmpty.js";
 import inquirer from "inquirer";
 import chalk from "chalk";
 
@@ -15,6 +16,10 @@ async function textInput(msg) {
 }
 
 export default async function modifyAccount(db) {
+    // Check if account database is empty.
+    if(checkEmpty(db))
+        return;
+
     const service = await selectService(db);
     const accountIndex = await selectAccount(db, service);
 

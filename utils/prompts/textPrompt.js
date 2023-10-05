@@ -1,13 +1,11 @@
-import { stdin, stdout } from "node:process";
-import * as readline from "readline/promises";
+import inquirer from "inquirer";
 
 export default async function textPrompt(msg) {
-    const rl = readline.createInterface({ input: stdin, output: stdout });
-    let input = "";
+    const { answer } = await inquirer.prompt({
+        name: "answer",
+        message: msg,
+        type: "input"
+    });
 
-    while(!input) {
-        input = await rl.question(msg);
-    }
-    rl.close()
-    return input;
+    return answer;
 }

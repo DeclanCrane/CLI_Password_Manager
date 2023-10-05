@@ -1,12 +1,20 @@
+import checkEmpty from "./checkEmpty.js";
 import figlet from "figlet"
 import chalk from "chalk"
 
 export default function listAccounts(db, serviceName) {
+    if (checkEmpty(db) || checkEmpty(db, serviceName))
+        return;
+
+
+    // Make sure there are accounts.
+    if (JSON.stringify(db.accounts) === "{}")
+        console.log(chalk.yellowBright("No accounts created"));
 
     if (!serviceName) {
         for (var service in db.accounts) {
+            console.log(chalk.blueBright(figlet.textSync((`${service}`))))
             db.accounts[`${service}`].map((account, idx) => {
-                console.log(chalk.blueBright(figlet.textSync((`${service}`))))
                 console.log(`${idx + 1}) User: ${chalk.greenBright(account.username)}, Pass: ${chalk.redBright(account.password)}`)
             })
         }

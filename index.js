@@ -6,13 +6,13 @@ import addAccount from "./utils/addAccount.js"
 import deleteAccount from "./utils/deleteAccount.js"
 import listAccounts from "./utils/listAccounts.js"
 import saveAndExit from "./utils/saveAndExit.js"
-import chalk from "chalk"
 import figlet from "figlet"
 import inquirer from "inquirer"
 import gradient from "gradient-string"
 import "dotenv/config"
 import modifyAccount from "./utils/modifyAccount.js"
 
+// Welcome
 const welcomeGradient = gradient(['#1eff00', '#1d7512', '#1eff00']);
 console.log(welcomeGradient(figlet.textSync("WELCOME")));
 
@@ -24,6 +24,7 @@ if (!existsSync(getConfigDir())) {
 // Authenticate
 const config = await authenticate();
 
+// Menu
 while (true) {
     const menu = await inquirer.prompt({
         name: "menu",

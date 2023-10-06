@@ -6,6 +6,8 @@ export default function listAccounts(db, serviceName) {
     if (checkEmpty(db) || checkEmpty(db, serviceName))
         return;
 
+    // Clear console
+    console.clear()
 
     // Make sure there are accounts.
     if (JSON.stringify(db.accounts) === "{}")

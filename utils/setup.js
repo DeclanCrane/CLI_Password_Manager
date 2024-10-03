@@ -2,13 +2,13 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import figlet from "figlet";
 import { rmSync } from "node:fs"
-import createDatabaseDir from "./createDatabaseDir.js";
+import createDatabase from "./createDatabaseDir.js";
 import dbBoiler from "../templates/dbBoiler.js";
 import setConfig from "./setConfig.js";
 
 export default async function setup() {
     // Create database directory 
-    const dir = createDatabaseDir() 
+    const dir = createDatabase() 
 
     console.log(chalk.blue(figlet.textSync("SETUP")));
 

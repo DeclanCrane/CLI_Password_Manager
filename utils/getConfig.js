@@ -1,10 +1,9 @@
 import { readFileSync } from "node:fs"
-import { homedir } from "node:os"
+import getConfigDir from "./getConfigDir.js";
 
 export default function getConfig() {
     try {
-        return data = readFileSync(`${homedir()}/${process.env.CONFIG_PATH}/${process.env.CONFIG_FILE}`,
-            { encoding: 'utf8' });
+        return readFileSync(getConfigDir(), { encoding: 'utf8'});
     } catch (err) {
         console.error(`Error reading database file: ${err}`);
         process.exit(1);

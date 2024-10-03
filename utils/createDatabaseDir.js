@@ -1,13 +1,13 @@
 import { mkdirSync } from "node:fs"
-import { platform, homedir } from "node:os"
+import getConfigDir from './getConfigDir.js';
+import path from 'node:path'
 
 // Creates the database files for storing accounts
-export default function createDatabaseDir() {
-    const dir = `${homedir()}/${process.env.CONFIG_PATH}`
+export default function createDatabase() {
     // Create database folder
     try {
-        mkdirSync(dir, { recursive: true })
-        return dir;
+        mkdirSync(path.dirname(getConfigDir()), { recursive: true })
+        return true;
     } catch(err) {
         console.error(`Error creating database directory ${err}`);
         return false;

@@ -1,4 +1,7 @@
-import { homedir } from "node:os"
+import os from "node:os"
+import path from 'node:path';
+
+import 'dotenv/config';
 
 // Returns the directory of the database file
 /*
@@ -7,5 +10,5 @@ import { homedir } from "node:os"
 */
 
 export default function getConfigDir() {
-    return `${homedir()}/${process.env.CONFIG_PATH}/${process.env.CONFIG_FILE}`
+    return path.join(os.homedir(), process.env.CONFIG_PATH, process.env.CONFIG_FILE)
 }

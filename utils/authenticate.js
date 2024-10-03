@@ -3,6 +3,8 @@ import decrypt from "./decrypt.js";
 import inquirer from "inquirer";
 import chalk from "chalk";
 
+import 'dotenv/config';
+
 async function getPassword() {
     const pass = await inquirer.prompt({
         name: "pass",
@@ -14,18 +16,20 @@ async function getPassword() {
 }
 
 export default async function authenticate() {
-    const maxRetry = 3;
     const config = getConfig();
 
-    for(let i = 1; i <= maxRetry; i++) {
-        const password = await getPassword(); 
-        const data = decrypt(config, password)
+    const maxRetry = process.env.MAX_RETRY > 0 ? process.env.MAX_RETRY : 1;
+
+    for(let i = 0; i < maxRetry; i++) {
+        const password = await getPassword();
+        const data = decrypt(config, password);
+
         if(data) {
             console.log(chalk.greenBright("Access granted"));
             return data;
         } else {
-            console.log(chalk.redBright(`Access denied: attempt (${i}/${maxRetry})`));
+            console.log(chalk.redBright(`Access denied: attempt (${i + 1}/${maxRetry})`));
         }
     }
-    process.exit(1);
+    process.exit(0);
 }

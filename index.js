@@ -6,13 +6,13 @@ import setup from "./utils/setup.js"
 import authenticate from "./utils/authenticate.js"
 import addAccount from "./utils/addAccount.js"
 import deleteAccount from "./utils/deleteAccount.js"
+import modifyAccount from "./utils/modifyAccount.js"
 import listAccounts from "./utils/listAccounts.js"
 import saveAndExit from "./utils/saveAndExit.js"
 import figlet from "figlet"
 import inquirer from "inquirer"
 import gradient from "gradient-string"
 import "dotenv/config"
-import modifyAccount from "./utils/modifyAccount.js"
 
 // Welcome
 const welcomeGradient = gradient(['#1eff00', '#1d7512', '#1eff00']);
